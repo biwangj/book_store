@@ -14,12 +14,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/add")
-    public String createUser(@ModelAttribute User user) {
-        userService.createUser(user);
-        return "redirect:/login";
-    }
-
     @GetMapping("/show")
     public List<User> showUser() {
         return userService.showUser();

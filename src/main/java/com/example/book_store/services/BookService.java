@@ -22,7 +22,7 @@ public class BookService {
         return bookRepo.save(book);
     }
 
-    //
+    //show all books
     public List<Book> showBook() {
         return bookRepo.findAll();
     }
@@ -31,12 +31,18 @@ public class BookService {
         return categoryRepo.findAll();
     }
 
+    //filter by category
     public List<Book> filterBook(Long id) {
         return bookRepo.findByCategoryId(id);
     }
 
+    //search by title
     public List<Book> searchBook(String title) {
         return bookRepo.findByTitle(title);
+    }
+
+    public List<Book> getBookById(Long bookId) {
+        return bookRepo.getBookById(bookId);
     }
 
 }

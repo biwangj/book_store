@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
     <title>Book Store</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/books.css">
+    <link rel="stylesheet" href="/css/cart.css">
 </head>
 
 <body>
 <nav class="navbar navbar-expand-md">
-    <a class="navbar-brand">
+    <a href="/book/catalog" class="navbar-brand">
         <img src="/images/logo.png" width="30%">
     </a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
@@ -21,24 +21,71 @@
     <div class="collapse navbar-collapse" id="main-navigation">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="books.html">Home</a>
+                <a class="nav-link" href="/book/catalog">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="cart.html">Cart</a>
+                <a class="nav-link" href="/cart/view">Cart</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="orders.html">View Orders</a>
+                <a class="nav-link" href="/orders">View Orders</a>
             </li>
         </ul>
     </div>
-
-    <div class="search">
-        <div class="search-content">
-            <button class="search-button"><i class="fa fa-search"></i></button>
-            <input type="text" class="search-input" placeholder="Search books here...">
-        </div>
-    </div>
 </nav>
+
+<h1>Your Shopping Cart</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Actions</th> <!-- change later -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${cart.isEmpty()}">
+        <td colspan="5">Your cart is empty.</td>
+    </tr>
+    <tr th:each="item : ${cart}">
+        <td th:text="${item.book.title}"></td>
+        <td th:text="'₱ ' + ${item.book.price}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td th:text="'₱ ' + ${item.book.price * item.quantity}"></td>
+        <td>
+            <div class="quantity-container">
+                <!-- increase quantity -->
+                <form th:action="@{/cart/increase}" method="post">
+                    <input type="hidden" name="bookId" th:value="${item.book.id}">
+                    <button type="submit" class="quantity-btn">+</button>
+                </form>
+
+                <!-- decrease quantity -->
+                <form action="/cart/decrease" method="post">
+                    <input type="hidden" name="bookId" th:value="${item.book.id}">
+                    <button type="submit" class="quantity-btn">-</button>
+                </form>
+
+                <!-- remove item -->
+                <form action="/cart/remove" method="post">
+                    <input type="hidden" name="bookId" th:value="${item.book.id}">
+                    <button type="submit" class="remove">Remove</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- checkout -->
+<form action="/cart/checkout" method="post">
+    <button type="submit" class="checkout">Checkout</button>
+</form>
+
+<a href="/book/catalog">Continue Shopping</a>
+
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,8 @@
 
 <body>
 <nav class="navbar navbar-expand-md">
-    <a class="navbar-brand">
-        <img src="/images/logo.png" width="30%">
+    <a href="/book/catalog" class="navbar-brand">
+        <img src="/images/logo.png" width="30%" alt="Home">
     </a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
         <span class="navbar-toggler-icon"></span>
@@ -21,24 +21,67 @@
     <div class="collapse navbar-collapse" id="main-navigation">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="books.html">Home</a>
+                <a class="nav-link" href="/book/catalog">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="cart.html">Cart</a>
+                <a class="nav-link" href="/cart/view">Cart</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="orders.html">View Orders</a>
+                <a class="nav-link" href="/orders">View Orders</a>
             </li>
         </ul>
     </div>
-
-    <div class="search">
+    <form method="get" action="/book/catalog" class="search">
         <div class="search-content">
-            <button class="search-button"><i class="fa fa-search"></i></button>
-            <input type="text" class="search-input" placeholder="Search books here...">
+            <button type="submit" class="search-button"><img src="/images/search.png" alt="search"></button>
+            <input type="text" name="search" class="search-input" placeholder="Search books here..."
+                   th:value="${param.search}">
         </div>
-    </div>
+    </form>
 </nav>
+
+<h2>Available Books</h2>
+
+<!-- filter by categoru (drop down) -->
+<form method="get" action="/book/catalog" class="form-inline mb-4">
+    <select name="category" class="form-control mr-2">
+        <option value="">All Categories</option>
+        <option th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:text="${category.name}"
+                th:selected="${selectedCategory != null and selectedCategory == category.id}">
+        </option>
+    </select>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="'₱ ' + ${book.price}"></td>
+        <td th:text="${book.description}"></td>
+        <td th:text="${book.category.name}"></td>
+        <td>
+            <form th:action="@{/cart/add/{bookId}(bookId=${book.id})}" method="post">
+                <button type="submit" class="btn btn-success">Add to Cart</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 
 </html>

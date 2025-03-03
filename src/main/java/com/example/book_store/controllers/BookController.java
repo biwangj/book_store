@@ -2,6 +2,7 @@ package com.example.book_store.controllers;
 
 import com.example.book_store.models.Book;
 import com.example.book_store.models.Category;
+import com.example.book_store.models.User;
 import com.example.book_store.services.BookService;
 import com.example.book_store.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class BookController {
         return bookService.showBook();
     }
 
+    //add books
     @PostMapping("/add")
     public Book addBook(@RequestBody Book book) {
         return bookService.addBook(book);
@@ -45,6 +47,7 @@ public class BookController {
         return bookService.searchBook(title);
     }
 
+    //add book category
     @PostMapping("/add/category")
     public Category addCategory(@RequestBody Category category) {
         return categoryService.addCatagory(category);

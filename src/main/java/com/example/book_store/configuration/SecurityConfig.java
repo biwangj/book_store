@@ -14,33 +14,30 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-    }
+    //    @Bean
+    //    public UserDetailsService userDetailsService() {
+    //        UserDetails user = User.withUsername("admin")
+    //                .password(passwordEncoder().encode("admin"))
+    //                .roles("USER")
+    //                .build();
+    //        return new InMemoryUserDetailsManager(user);
+    //    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/books", "/user/add").permitAll()
-                        .requestMatchers("/books").hasRole("USER")
+                        .requestMatchers("/register", "/book/catalog", "/user/add").permitAll()
                         .anyRequest().permitAll()
                 ).formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/books", true)
+                        .defaultSuccessUrl("/book/catalog", true)
                         .permitAll()
-                ).logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .permitAll());
+                );
 
         return http.build();
     }

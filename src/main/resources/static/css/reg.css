@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Preahvihear&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Preahvihear", sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('/images/bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+section {
+    position: relative;
+    max-width: 500px;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    backdrop-filter: blur(55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 4rem;
+    transition: all 0.5s ease-in-out;
+}
+
+h1 {
+    font-size: 2rem;
+    color: black;
+    text-align: center;
+}
+
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.inputbox {
+    position: relative;
+    margin: 30px auto;
+    max-width: 550px;
+    border-bottom: 2px solid black;
+    transition: all 0.5s ease-in-out;
+}
+
+.inputbox input {
+    text-align: center;
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 0px;
+    color: black;
+}
+
+.inputbox label {
+    position: absolute;
+    top: 20%;
+    left: 155px;
+    transform: translate(-50%);
+    color: rgb(82, 79, 79);
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.5s ease-in-out;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+    top: -25px;
+    font-size: 0.9rem;
+    color: black;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background-color: rgb(76, 219, 140);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.5s ease-in-out;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.register {
+    font-size: 0.9rem;
+    color: black;
+    text-align: center;
+    margin: 25px 10px;
+    transition: all 0.5s ease-in-out;
+}
+
+.register p a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    transition: all 0.5s ease-in-out;
+}
+
+.register p a:hover {
+    text-decoration: underline;
+    color: black;
+}

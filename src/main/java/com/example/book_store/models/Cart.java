@@ -20,7 +20,15 @@ public class Cart {
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
+    public Cart () {
+
+    }
+
+    public Cart(Book book, int quantity) {
+        this.book = book;
+        this.quantity = quantity;
+    }
 }
